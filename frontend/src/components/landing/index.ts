@@ -1,0 +1,8 @@
+export { Hero } from './Hero'
+export { FeatureList } from './FeatureList'
+export { DashboardMockup } from './DashboardMockup'
+export { HowItWorks } from './HowItWorks'
+export { CoreBenefits } from './CoreBenefits'
+export { FAQ } from './FAQ'
+export { Contact } from './Contact'
+export { FinalCTA } from './FinalCTA'

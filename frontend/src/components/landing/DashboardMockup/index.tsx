@@ -5,7 +5,6 @@ import dummyInterviewer from '@/assets/dummy-interviewer.svg'
 import dummyCandidate from '@/assets/dummy-candidate.svg'
 import { ParticipantTabs } from './ParticipantTabs'
 import { VideoFeed } from './VideoFeed'
-import { AudioPlayer } from './AudioPlayer'
 import { ChatHistory } from './ChatHistory'
 
 const PARTICIPANTS = [
@@ -65,7 +64,6 @@ const CHAT_BY_PARTICIPANT: Record<string, { id: string; text: string }[]> = {
 
 export function DashboardMockup() {
   const [selectedId, setSelectedId] = useState('merra')
-  const [isPlaying, setIsPlaying] = useState(false)
 
   const selected =
     PARTICIPANTS.find((p) => p.id === selectedId) ?? PARTICIPANTS[0]
@@ -102,12 +100,6 @@ export function DashboardMockup() {
                   alt,
                 }),
               )}
-            />
-            <AudioPlayer
-              currentTime="0:00"
-              duration="0:33"
-              isPlaying={isPlaying}
-              onTogglePlay={() => setIsPlaying((v) => !v)}
             />
           </div>
 

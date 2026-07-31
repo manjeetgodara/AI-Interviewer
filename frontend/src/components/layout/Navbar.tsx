@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { History, Menu, X } from 'lucide-react'
 import { MerraLogo, Button } from '@/components/ui'
 import { useAuth } from '@/context/AuthContext'
+import { UserAvatar } from './UserAvatar'
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
@@ -23,18 +24,7 @@ export function Navbar() {
           </button>
 
           {isAuthenticated ? (
-            <>
-              <span className="max-w-[220px] truncate text-sm font-medium text-ink-muted">
-                {user?.email}
-              </span>
-              <Link
-                to="/interview/setup"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white shadow-sm shadow-brand-600/25 transition-colors hover:bg-brand-700"
-                aria-label="Go to interview setup"
-              >
-                GO
-              </Link>
-            </>
+            <UserAvatar />
           ) : (
             <>
               <Link to="/signin">
@@ -42,27 +32,17 @@ export function Navbar() {
                   Sign In
                 </Button>
               </Link>
-              <Link
-                to="/signup"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white shadow-sm shadow-brand-600/25 transition-colors hover:bg-brand-700"
-                aria-label="Sign up"
-              >
-                GO
+              <Link to="/signup">
+                <Button variant="primary" size="sm">
+                  Sign Up
+                </Button>
               </Link>
             </>
           )}
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          {isAuthenticated && (
-            <Link
-              to="/interview/setup"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-xs font-bold tracking-wide text-white"
-              aria-label="Go to interview setup"
-            >
-              GO
-            </Link>
-          )}
+          {isAuthenticated && <UserAvatar />}
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink"
@@ -91,13 +71,6 @@ export function Navbar() {
                 <p className="truncate px-1 text-sm font-semibold text-ink">
                   {user?.email}
                 </p>
-                <Link
-                  to="/interview/setup"
-                  onClick={() => setOpen(false)}
-                  className="mt-2 flex h-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white"
-                >
-                  GO
-                </Link>
                 <Button
                   variant="outline"
                   size="md"
@@ -117,12 +90,10 @@ export function Navbar() {
                     Sign In
                   </Button>
                 </Link>
-                <Link
-                  to="/signup"
-                  onClick={() => setOpen(false)}
-                  className="flex h-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white"
-                >
-                  GO
+                <Link to="/signup" onClick={() => setOpen(false)}>
+                  <Button variant="primary" size="md" className="w-full">
+                    Sign Up
+                  </Button>
                 </Link>
               </>
             )}

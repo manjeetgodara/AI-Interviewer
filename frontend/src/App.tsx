@@ -7,6 +7,7 @@ import { SignInPage } from '@/pages/SignInPage'
 import { SignUpPage } from '@/pages/SignUpPage'
 import { InterviewSetupPage } from '@/pages/InterviewSetupPage'
 import { InterviewPage } from '@/pages/InterviewPage'
+import { InterviewSessionPage } from '@/pages/InterviewSessionPage'
 import { OAuthCallbackPage } from '@/pages/OAuthCallbackPage'
 
 export default function App() {
@@ -32,6 +33,14 @@ export default function App() {
               element={
                 <RequireAuth>
                   <InterviewPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/interview/session"
+              element={
+                <RequireAuth>
+                  <InterviewSessionPage />
                 </RequireAuth>
               }
             />

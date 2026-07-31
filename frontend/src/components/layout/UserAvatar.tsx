@@ -22,7 +22,7 @@ export function UserAvatar({ className = '' }: UserAvatarProps) {
 
   if (!user) return null
 
-  const initials = getInitials(user.fullName)
+  const initials = getInitials(user.email)
 
   return (
     <div ref={rootRef} className={`relative ${className}`}>
@@ -30,9 +30,9 @@ export function UserAvatar({ className = '' }: UserAvatarProps) {
         type="button"
         onClick={() => setMenuOpen((v) => !v)}
         className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white shadow-sm shadow-brand-600/25 transition-colors hover:bg-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
-        aria-label={`${user.fullName} account menu`}
+        aria-label={`${user.email} account menu`}
         aria-expanded={menuOpen}
-        title={user.fullName}
+        title={user.email}
       >
         {initials}
       </button>
@@ -40,8 +40,7 @@ export function UserAvatar({ className = '' }: UserAvatarProps) {
       {menuOpen && (
         <div className="absolute right-0 z-50 mt-2 w-52 overflow-hidden rounded-xl border border-border bg-white py-1 shadow-lg">
           <div className="border-b border-border px-3.5 py-2.5">
-            <p className="truncate text-sm font-semibold text-ink">{user.fullName}</p>
-            <p className="truncate text-xs text-ink-muted">{user.email}</p>
+            <p className="truncate text-sm font-semibold text-ink">{user.email}</p>
           </div>
           <button
             type="button"

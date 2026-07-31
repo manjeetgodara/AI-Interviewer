@@ -5,8 +5,10 @@ from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.config import settings
-from app.database import Base, engine
+from app.database import Base, apply_schema_updates, engine
 from app.routers import auth as auth_router
+from app.routers import interview as interview_router
+from app.routers.interview import ensure_output_dir
 
 app = FastAPI(title="Merra AI Interviewer API", version="1.0.0")
 
@@ -22,6 +24,8 @@ app.add_middleware(
 @app.on_event("startup")
 def on_startup():
     Base.metadata.create_all(bind=engine)
+    apply_schema_updates()
+    ensure_output_dir()
 
 
 @app.exception_handler(StarletteHTTPException)
@@ -47,3 +51,4 @@ def health():
 
 
 app.include_router(auth_router.router)
+app.include_router(interview_router.router)

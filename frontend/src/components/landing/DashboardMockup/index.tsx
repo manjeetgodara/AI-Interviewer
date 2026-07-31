@@ -1,22 +1,38 @@
 import { useState } from 'react'
 import { Calendar } from 'lucide-react'
 import { MerraLogo } from '@/components/ui'
-import { VoiceSelector, type Voice } from './VoiceSelector'
+import dummyInterviewer from '@/assets/dummy-interviewer.svg'
+import dummyCandidate from '@/assets/dummy-candidate.svg'
+import { ParticipantTabs } from './ParticipantTabs'
 import { VideoFeed } from './VideoFeed'
 import { AudioPlayer } from './AudioPlayer'
 import { ChatHistory } from './ChatHistory'
 
-const VOICES: Voice[] = [
-  { id: 'lily', name: 'Lily', online: true },
-  { id: 'alexandra', name: 'Alexandra' },
-  { id: 'chris', name: 'Chris' },
-]
+const PARTICIPANTS = [
+  {
+    id: 'merra',
+    name: 'AI Interviewer',
+    role: 'Merra',
+    label: 'AI Interviewer · Merra',
+    imageUrl: dummyInterviewer,
+    alt: 'AI Interviewer Merra placeholder',
+    online: true,
+  },
+  {
+    id: 'candidate',
+    name: 'Candidate',
+    role: 'Live session',
+    label: 'Candidate',
+    imageUrl: dummyCandidate,
+    alt: 'Candidate placeholder',
+  },
+] as const
 
-const CHAT_BY_VOICE: Record<string, { id: string; text: string }[]> = {
-  lily: [
+const CHAT_BY_PARTICIPANT: Record<string, { id: string; text: string }[]> = {
+  merra: [
     {
       id: '1',
-      text: "Hey, I'm Lily. I talk with candidates, not at a camera.",
+      text: "Hey, I'm Merra. I talk with candidates, not at a camera.",
     },
     {
       id: '2',
@@ -24,60 +40,50 @@ const CHAT_BY_VOICE: Record<string, { id: string; text: string }[]> = {
     },
     {
       id: '3',
-      text: "Tell me about a time you had to ship under a tight deadline.",
+      text: 'Tell me about a time you had to ship under a tight deadline.',
     },
     {
       id: '4',
       text: 'What trade-offs did you make, and how did you communicate them?',
     },
   ],
-  alexandra: [
+  candidate: [
     {
       id: '1',
-      text: "Hi, I'm Alexandra. I'll guide you through a structured interview.",
+      text: 'In my last sprint we had three days left and a critical bug in checkout.',
     },
     {
       id: '2',
-      text: "We'll cover role fit, problem-solving, and how you collaborate.",
+      text: 'I cut non-essential scope, paired with QA, and shipped a hotfix the same day.',
     },
     {
       id: '3',
-      text: 'Walk me through a project you owned end to end.',
-    },
-  ],
-  chris: [
-    {
-      id: '1',
-      text: "Chris here — let's keep this conversational and practical.",
-    },
-    {
-      id: '2',
-      text: "I'll dig into how you think, not just what you've memorized.",
-    },
-    {
-      id: '3',
-      text: 'Describe a tough technical decision you made recently.',
+      text: 'I kept stakeholders updated every few hours so expectations stayed clear.',
     },
   ],
 }
 
 export function DashboardMockup() {
-  const [selectedVoiceId, setSelectedVoiceId] = useState('lily')
+  const [selectedId, setSelectedId] = useState('merra')
   const [isPlaying, setIsPlaying] = useState(false)
 
-  const selectedVoice =
-    VOICES.find((v) => v.id === selectedVoiceId) ?? VOICES[0]
-  const messages = CHAT_BY_VOICE[selectedVoiceId] ?? CHAT_BY_VOICE.lily
+  const selected =
+    PARTICIPANTS.find((p) => p.id === selectedId) ?? PARTICIPANTS[0]
+  const messages = CHAT_BY_PARTICIPANT[selectedId] ?? CHAT_BY_PARTICIPANT.merra
 
   return (
     <section className="relative mx-auto max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
       <div className="relative rounded-2xl border border-border bg-white p-4 shadow-[0_24px_80px_-20px_rgba(26,24,72,0.18)] sm:p-5 lg:p-6">
         <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <MerraLogo size="sm" className="shrink-0" />
-          <VoiceSelector
-            voices={VOICES}
-            selectedId={selectedVoiceId}
-            onSelect={setSelectedVoiceId}
+          <ParticipantTabs
+            tabs={PARTICIPANTS.map(({ id, label, online }) => ({
+              id,
+              label,
+              online,
+            }))}
+            selectedId={selectedId}
+            onSelect={setSelectedId}
           />
         </div>
 
@@ -86,20 +92,16 @@ export function DashboardMockup() {
             <VideoFeed
               timeLabel="12:18"
               dateLabel="09 September, 2025"
-              interviewer={{
-                name: 'AI Interviewer',
-                role: 'Merra · Lily',
-                imageUrl:
-                  'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=640&h=480&fit=crop&auto=format',
-                alt: 'AI interviewer in a blue shirt',
-              }}
-              candidate={{
-                name: 'Candidate',
-                role: 'Live session',
-                imageUrl:
-                  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=640&h=480&fit=crop&auto=format',
-                alt: 'Candidate in a white shirt',
-              }}
+              selectedId={selectedId}
+              participants={PARTICIPANTS.map(
+                ({ id, name, role, imageUrl, alt }) => ({
+                  id,
+                  name,
+                  role,
+                  imageUrl,
+                  alt,
+                }),
+              )}
             />
             <AudioPlayer
               currentTime="0:00"
@@ -109,7 +111,10 @@ export function DashboardMockup() {
             />
           </div>
 
-          <ChatHistory voiceName={selectedVoice.name} messages={messages} />
+          <ChatHistory
+            title={`Chat History — ${selected.name}`}
+            messages={messages}
+          />
         </div>
 
         <button

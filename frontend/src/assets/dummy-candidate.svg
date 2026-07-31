@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480" fill="none">
+  <rect width="640" height="480" fill="#334155"/>
+  <circle cx="320" cy="190" r="78" fill="#CBD5E1"/>
+  <ellipse cx="320" cy="390" rx="140" ry="110" fill="#94A3B8"/>
+  <text x="320" y="455" text-anchor="middle" fill="#F1F5F9" font-family="system-ui,sans-serif" font-size="18" font-weight="600">Candidate</text>
+</svg>

@@ -4,17 +4,15 @@ type ChatMessage = {
 }
 
 type ChatHistoryProps = {
-  voiceName: string
+  title: string
   messages: ChatMessage[]
 }
 
-export function ChatHistory({ voiceName, messages }: ChatHistoryProps) {
+export function ChatHistory({ title, messages }: ChatHistoryProps) {
   return (
     <aside className="flex w-full flex-col rounded-xl border border-border bg-white lg:w-[280px] xl:w-[300px]">
       <div className="border-b border-border px-4 py-3">
-        <h3 className="text-sm font-bold text-ink">
-          Chat History — {voiceName}
-        </h3>
+        <h3 className="text-sm font-bold text-ink">{title}</h3>
       </div>
 
       <div className="flex flex-1 flex-col gap-2.5 overflow-y-auto p-3 sm:p-4">

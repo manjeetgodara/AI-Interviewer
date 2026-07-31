@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from app.config import settings
@@ -9,6 +9,18 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 class Base(DeclarativeBase):
     pass
+
+
+def apply_schema_updates() -> None:
+    """Apply lightweight column changes that create_all cannot handle."""
+    inspector = inspect(engine)
+    if "users" not in inspector.get_table_names():
+        return
+
+    columns = {column["name"] for column in inspector.get_columns("users")}
+    if "full_name" in columns:
+        with engine.begin() as conn:
+            conn.execute(text("ALTER TABLE users DROP COLUMN full_name"))
 
 
 def get_db():

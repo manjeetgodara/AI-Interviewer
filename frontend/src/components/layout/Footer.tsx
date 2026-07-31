@@ -2,7 +2,6 @@ const FOOTER_LINKS = [
   { label: 'Security & Privacy', href: '#security' },
   { label: 'Terms & Conditions', href: '#terms' },
   { label: 'Data Processing Agreement', href: '#dpa' },
-  { label: 'Contact Us', href: '#contact' },
 ] as const
 
 export function Footer() {

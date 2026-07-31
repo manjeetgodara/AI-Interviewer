@@ -1,41 +1,40 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { History, Menu, X } from 'lucide-react'
 import { MerraLogo, Button } from '@/components/ui'
 import { useAuth } from '@/context/AuthContext'
-import { UserAvatar } from './UserAvatar'
-
-const NAV_LINKS = [
-  { label: 'Features', href: '#features' },
-  { label: 'Use Cases', href: '#use-cases' },
-  { label: 'Resources', href: '#resources' },
-  { label: 'Contact', href: '#contact' },
-] as const
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const { isAuthenticated, user, logout } = useAuth()
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/40 bg-white/75 backdrop-blur-md">
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-white/75 backdrop-blur-md">
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-3 px-5 lg:px-8">
         <MerraLogo size="md" />
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-[14px] font-medium text-ink-muted transition-colors hover:text-ink"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <div className="hidden items-center gap-3 lg:flex">
+          <button
+            type="button"
+            className="inline-flex h-9 items-center gap-2 rounded-full border border-border bg-white px-3.5 text-[13px] font-semibold text-ink transition-colors hover:bg-surface cursor-pointer"
+          >
+            <History size={15} aria-hidden />
+            View History
+          </button>
 
-        <div className="hidden items-center gap-2 lg:flex">
           {isAuthenticated ? (
-            <UserAvatar />
+            <>
+              <span className="max-w-[220px] truncate text-sm font-medium text-ink-muted">
+                {user?.email}
+              </span>
+              <Link
+                to="/interview/setup"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white shadow-sm shadow-brand-600/25 transition-colors hover:bg-brand-700"
+                aria-label="Go to interview setup"
+              >
+                GO
+              </Link>
+            </>
           ) : (
             <>
               <Link to="/signin">
@@ -43,17 +42,27 @@ export function Navbar() {
                   Sign In
                 </Button>
               </Link>
-              <Link to="/signup">
-                <Button variant="primary" size="sm" className="min-w-[96px]">
-                  Sign Up
-                </Button>
+              <Link
+                to="/signup"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white shadow-sm shadow-brand-600/25 transition-colors hover:bg-brand-700"
+                aria-label="Sign up"
+              >
+                GO
               </Link>
             </>
           )}
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          {isAuthenticated && <UserAvatar />}
+          {isAuthenticated && (
+            <Link
+              to="/interview/setup"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-brand-600 text-xs font-bold tracking-wide text-white"
+              aria-label="Go to interview setup"
+            >
+              GO
+            </Link>
+          )}
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-full text-ink"
@@ -68,20 +77,27 @@ export function Navbar() {
 
       {open && (
         <div className="border-t border-border bg-white px-5 py-4 lg:hidden">
-          <nav className="flex flex-col gap-1" aria-label="Mobile">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-ink-muted hover:bg-surface hover:text-ink"
-                onClick={() => setOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+          <div className="flex flex-col gap-3">
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-border bg-white text-sm font-semibold text-ink cursor-pointer"
+            >
+              <History size={15} aria-hidden />
+              View History
+            </button>
             {isAuthenticated ? (
-              <div className="mt-3 border-t border-border pt-3">
-                <p className="px-1 text-sm font-semibold text-ink">{user?.fullName}</p>
+              <div className="border-t border-border pt-3">
+                <p className="truncate px-1 text-sm font-semibold text-ink">
+                  {user?.email}
+                </p>
+                <Link
+                  to="/interview/setup"
+                  onClick={() => setOpen(false)}
+                  className="mt-2 flex h-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white"
+                >
+                  GO
+                </Link>
                 <Button
                   variant="outline"
                   size="md"
@@ -97,18 +113,20 @@ export function Navbar() {
             ) : (
               <>
                 <Link to="/signin" onClick={() => setOpen(false)}>
-                  <Button variant="outline" size="md" className="mt-3 w-full">
+                  <Button variant="outline" size="md" className="w-full">
                     Sign In
                   </Button>
                 </Link>
-                <Link to="/signup" onClick={() => setOpen(false)}>
-                  <Button variant="primary" size="md" className="mt-2 w-full">
-                    Sign Up
-                  </Button>
+                <Link
+                  to="/signup"
+                  onClick={() => setOpen(false)}
+                  className="flex h-11 items-center justify-center rounded-full bg-brand-600 text-sm font-bold tracking-wide text-white"
+                >
+                  GO
                 </Link>
               </>
             )}
-          </nav>
+          </div>
         </div>
       )}
     </header>

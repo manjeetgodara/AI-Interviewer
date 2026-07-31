@@ -60,9 +60,9 @@ export function useAuth() {
   return ctx
 }
 
-export function getInitials(fullName: string): string {
-  const parts = fullName.trim().split(/\s+/).filter(Boolean)
-  if (parts.length === 0) return '?'
-  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase()
-  return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase()
+export function getInitials(email: string): string {
+  const local = email.trim().split('@')[0] ?? ''
+  const cleaned = local.replace(/[^a-zA-Z0-9]/g, '')
+  if (cleaned.length === 0) return '?'
+  return cleaned.slice(0, 2).toUpperCase()
 }

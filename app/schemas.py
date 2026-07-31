@@ -5,11 +5,8 @@ from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class SignUpRequest(BaseModel):
-    full_name: str = Field(..., min_length=2, max_length=100, alias="fullName")
     email: EmailStr
     password: str = Field(..., min_length=8, max_length=128)
-
-    model_config = {"populate_by_name": True}
 
     @field_validator("password")
     @classmethod
@@ -28,7 +25,6 @@ class SignInRequest(BaseModel):
 
 class UserOut(BaseModel):
     id: UUID
-    full_name: str = Field(serialization_alias="fullName")
     email: EmailStr
     created_at: datetime = Field(serialization_alias="createdAt")
 
@@ -38,3 +34,12 @@ class UserOut(BaseModel):
 class AuthResponse(BaseModel):
     user: UserOut
     token: str
+
+
+class InterviewSetupResponse(BaseModel):
+    role: str
+    github_url: str = Field("", serialization_alias="githubUrl")
+    resume_name: str = Field(..., serialization_alias="resumeName")
+    text_path: str = Field(..., serialization_alias="textPath")
+
+    model_config = {"populate_by_name": True}

@@ -2,10 +2,7 @@ import { Navbar, Footer } from '@/components/layout'
 import {
   Hero,
   DashboardMockup,
-  HowItWorks,
   CoreBenefits,
-  FAQ,
-  Contact,
   FinalCTA,
 } from '@/components/landing'
 
@@ -16,10 +13,7 @@ export function LandingPage() {
       <main>
         <Hero />
         <DashboardMockup />
-        <HowItWorks />
         <CoreBenefits />
-        <FAQ />
-        <Contact />
         <FinalCTA />
       </main>
       <Footer />

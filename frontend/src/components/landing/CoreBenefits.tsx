@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Bot, DoorOpen, Sparkles, Timer } from 'lucide-react'
+import { FileText, Bot, Target, Clock3, Sparkles } from 'lucide-react'
 import { RevealOnScroll, WaveformBackground } from '@/components/ui'
 
 type Benefit = {
@@ -11,31 +11,31 @@ type Benefit = {
 
 const BENEFITS: Benefit[] = [
   {
-    title: 'Save 80% of Screening Time',
+    title: 'Tailored to Your Resume & Role',
     description:
-      'Merra handles early interviews so your team can focus on final-round fits.',
-    icon: <Timer size={22} strokeWidth={1.75} />,
+      'Upload your resume, pick a target role, and optionally add GitHub — Merra builds questions around your real experience.',
+    icon: <FileText size={22} strokeWidth={1.75} />,
     iconWrap: 'bg-sky-100 text-sky-600',
   },
   {
-    title: 'Conversational AI',
+    title: 'Live Conversational Practice',
     description:
-      'Human-sounding questions with adaptive follow-ups — not just a video dump.',
+      'A real back-and-forth with an AI interviewer — adaptive follow-ups, not a one-way video dump.',
     icon: <Bot size={22} strokeWidth={1.75} />,
     iconWrap: 'bg-indigo-100 text-indigo-600',
   },
   {
-    title: 'One Clear Score',
+    title: 'Clear Match-Fit Score',
     description:
-      'One clear 0-100 score + ranked shortlist. Per-area notes, key quotes, full video & transcript.',
-    icon: <Sparkles size={22} strokeWidth={1.75} />,
+      'Finish in 15–20 minutes with a 0–100 score, per-area notes, and a full transcript so you know what to improve.',
+    icon: <Target size={22} strokeWidth={1.75} />,
     iconWrap: 'bg-violet-100 text-violet-600',
   },
   {
-    title: 'Fully Async, Truly Accessible',
+    title: 'Practice Anytime',
     description:
-      'No scheduling. Candidates complete interviews anytime, on any device.',
-    icon: <DoorOpen size={22} strokeWidth={1.75} />,
+      'No scheduling, no panel to assemble. Rehearse for Software, Data, DevOps, PM, Design, QA, and more whenever you are ready.',
+    icon: <Clock3 size={22} strokeWidth={1.75} />,
     iconWrap: 'bg-emerald-100 text-emerald-600',
   },
 ]
@@ -50,10 +50,10 @@ export function CoreBenefits() {
 
             <div className="relative mb-10 max-w-xl">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-600">
-                Core Benefits
+                Use Cases
               </p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-                Why Teams Use Merra for Async Interviews?
+                Why Candidates Practice with Merra
               </h2>
             </div>
 

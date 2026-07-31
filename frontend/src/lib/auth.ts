@@ -3,7 +3,6 @@ const USER_KEY = 'merra_user'
 
 export type AuthUser = {
   id: string
-  fullName: string
   email: string
   createdAt: string
 }
@@ -63,11 +62,7 @@ export function clearSession() {
   localStorage.removeItem(USER_KEY)
 }
 
-export function signup(input: {
-  fullName: string
-  email: string
-  password: string
-}) {
+export function signup(input: { email: string; password: string }) {
   return request<AuthResponse>('/api/auth/signup', {
     method: 'POST',
     body: JSON.stringify(input),
@@ -83,4 +78,28 @@ export function signin(input: { email: string; password: string }) {
 
 export function fetchMe() {
   return request<{ user: AuthUser }>('/api/auth/me')
+}
+
+export type OAuthProvider = 'google'
+
+/** Redirects the browser to the backend OAuth start endpoint. */
+export function startOAuth(provider: OAuthProvider, redirectTo = '/') {
+  const params = new URLSearchParams({
+    redirect: redirectTo,
+  })
+  window.location.assign(`/api/auth/oauth/${provider}?${params.toString()}`)
+}
+
+/** Persist an OAuth access token and load the authenticated user. */
+export async function completeOAuthLogin(token: string): Promise<AuthResponse> {
+  localStorage.setItem(TOKEN_KEY, token)
+  try {
+    const { user } = await fetchMe()
+    const auth = { token, user }
+    setSession(auth)
+    return auth
+  } catch (err) {
+    clearSession()
+    throw err
+  }
 }

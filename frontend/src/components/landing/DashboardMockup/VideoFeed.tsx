@@ -1,4 +1,5 @@
 type VideoParticipant = {
+  id: string
   name: string
   role: string
   imageUrl: string
@@ -6,15 +7,15 @@ type VideoParticipant = {
 }
 
 type VideoFeedProps = {
-  interviewer: VideoParticipant
-  candidate: VideoParticipant
+  participants: VideoParticipant[]
+  selectedId: string
   timeLabel: string
   dateLabel: string
 }
 
 export function VideoFeed({
-  interviewer,
-  candidate,
+  participants,
+  selectedId,
   timeLabel,
   dateLabel,
 }: VideoFeedProps) {
@@ -27,25 +28,31 @@ export function VideoFeed({
       </div>
 
       <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-        {[interviewer, candidate].map((person) => (
-          <div
-            key={person.role}
-            className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#d8dce8]"
-          >
-            <img
-              src={person.imageUrl}
-              alt={person.alt}
-              className="h-full w-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent px-2.5 pb-2 pt-8">
-              <p className="text-[11px] font-semibold text-white sm:text-xs">
-                {person.name}
-              </p>
-              <p className="text-[10px] text-white/80">{person.role}</p>
+        {participants.map((person) => {
+          const selected = person.id === selectedId
+          return (
+            <div
+              key={person.id}
+              className={[
+                'relative aspect-[4/3] overflow-hidden rounded-xl bg-[#d8dce8] ring-2 transition-shadow',
+                selected ? 'ring-brand-500' : 'ring-transparent',
+              ].join(' ')}
+            >
+              <img
+                src={person.imageUrl}
+                alt={person.alt}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent px-2.5 pb-2 pt-8">
+                <p className="text-[11px] font-semibold text-white sm:text-xs">
+                  {person.name}
+                </p>
+                <p className="text-[10px] text-white/80">{person.role}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )

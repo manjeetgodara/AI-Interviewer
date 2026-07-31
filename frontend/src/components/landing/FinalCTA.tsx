@@ -22,7 +22,7 @@ export function FinalCTA() {
           </h2>
 
           <div className="relative mt-9 flex flex-col items-center gap-3 sm:flex-row">
-            <Link to="/signup">
+            <Link to="/interview/setup">
               <Button variant="primary" size="lg" className="min-w-[168px]">
                 Start Interview
               </Button>

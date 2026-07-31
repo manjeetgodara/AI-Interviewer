@@ -1,17 +1,23 @@
 import { useState, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthLayout } from '@/components/auth/AuthLayout'
 import { Button, Input } from '@/components/ui'
 import { useAuth } from '@/context/AuthContext'
 import { signin } from '@/lib/auth'
+import { getPostAuthRedirect } from '@/lib/authRedirect'
 
 export function SignInPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const from =
+    (location.state as { from?: string } | null)?.from ?? undefined
+  const redirectTo = getPostAuthRedirect(from)
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -21,7 +27,7 @@ export function SignInPage() {
     try {
       const auth = await signin({ email, password })
       login(auth)
-      navigate('/')
+      navigate(redirectTo, { replace: true })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not sign in')
     } finally {
@@ -32,12 +38,17 @@ export function SignInPage() {
   return (
     <AuthLayout
       title="Welcome back"
-      subtitle="Sign in to continue interviewing with Merra."
+      subtitle={
+        redirectTo === '/interview/setup'
+          ? 'Sign in to start your interview setup.'
+          : 'Sign in to continue interviewing with Merra.'
+      }
       footer={
         <>
           New to Merra?{' '}
           <Link
             to="/signup"
+            state={{ from }}
             className="font-semibold text-brand-600 no-underline hover:text-brand-700"
           >
             Create an account

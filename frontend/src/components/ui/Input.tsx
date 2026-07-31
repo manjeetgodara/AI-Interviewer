@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes } from 'react'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: string
+  label?: string
   error?: string
 }
 
@@ -16,7 +16,9 @@ export function Input({
 
   return (
     <label className="block" htmlFor={inputId}>
-      <span className="mb-1.5 block text-sm font-medium text-ink">{label}</span>
+      {label ? (
+        <span className="mb-1.5 block text-sm font-medium text-ink">{label}</span>
+      ) : null}
       <input
         id={inputId}
         className={[

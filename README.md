@@ -48,7 +48,7 @@ App: `http://localhost:5173`
 
 | Method | Path | Body |
 |--------|------|------|
-| POST | `/api/auth/signup` | `{ "fullName", "email", "password" }` |
+| POST | `/api/auth/signup` | `{ "email", "password" }` |
 | POST | `/api/auth/signin` | `{ "email", "password" }` |
 | GET | `/api/auth/me` | Bearer token |
 

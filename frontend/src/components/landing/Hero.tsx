@@ -19,7 +19,7 @@ export function Hero() {
 
         <div className="relative mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <WaveformBackground className="bottom-[-28px] h-24 sm:h-28" />
-          <Link to="/signup" className="relative z-10">
+          <Link to="/interview/setup" className="relative z-10">
             <Button variant="primary" size="lg" className="min-w-[168px]">
               Start Interview
             </Button>

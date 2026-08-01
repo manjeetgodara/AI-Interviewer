@@ -11,9 +11,11 @@ export function RequireAuth({ children }: RequireAuthProps) {
   const location = useLocation()
 
   if (!isAuthenticated) {
-    return (
-      <Navigate to="/signin" replace state={{ from: location.pathname }} />
-    )
+    const params = new URLSearchParams({
+      auth: 'signin',
+      from: location.pathname,
+    })
+    return <Navigate to={`/?${params.toString()}`} replace />
   }
 
   return children

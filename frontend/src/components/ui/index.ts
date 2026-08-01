@@ -1,5 +1,6 @@
 export { MerraLogo } from './MerraLogo'
 export { Button } from './Button'
 export { Input } from './Input'
+export { Modal } from './Modal'
 export { WaveformBackground } from './WaveformBackground'
 export { RevealOnScroll } from './RevealOnScroll'

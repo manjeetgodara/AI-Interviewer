@@ -54,7 +54,7 @@ export function OAuthCallbackPage() {
           <>
             Having trouble?{' '}
             <Link
-              to="/signup"
+              to="/?auth=signup"
               className="font-semibold text-brand-600 no-underline hover:text-brand-700"
             >
               Back to sign up

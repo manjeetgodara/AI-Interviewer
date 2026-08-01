@@ -14,9 +14,17 @@ from app.oauth import (
     google_authorize_url,
     make_oauth_state,
     parse_oauth_state,
+    sanitize_avatar,
     sanitize_redirect,
 )
-from app.schemas import AuthResponse, SignInRequest, SignUpRequest, UserOut
+from app.schemas import (
+    DEFAULT_AVATAR,
+    AuthResponse,
+    SignInRequest,
+    SignUpRequest,
+    UpdateAvatarRequest,
+    UserOut,
+)
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -41,7 +49,9 @@ def _oauth_callback_uri(provider: str) -> str:
     return f"{settings.api_public_origin.rstrip('/')}/api/auth/oauth/{provider}/callback"
 
 
-def _get_or_create_oauth_user(db: Session, *, email: str) -> User:
+def _get_or_create_oauth_user(
+    db: Session, *, email: str, avatar: str = DEFAULT_AVATAR
+) -> User:
     user = db.query(User).filter(User.email == email).first()
     if user is not None:
         return user
@@ -49,6 +59,7 @@ def _get_or_create_oauth_user(db: Session, *, email: str) -> User:
     user = User(
         email=email,
         password_hash=hash_password(secrets.token_urlsafe(32)),
+        avatar=sanitize_avatar(avatar),
     )
     db.add(user)
     db.commit()
@@ -74,6 +85,7 @@ def signup(body: SignUpRequest, db: Session = Depends(get_db)):
     user = User(
         email=email,
         password_hash=hash_password(body.password),
+        avatar=body.avatar,
     )
     db.add(user)
     db.commit()
@@ -98,10 +110,24 @@ def me(current_user: User = Depends(get_current_user)):
     return {"user": UserOut.model_validate(current_user).model_dump(by_alias=True)}
 
 
+@router.patch("/me/avatar")
+def update_avatar(
+    body: UpdateAvatarRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    current_user.avatar = body.avatar
+    db.add(current_user)
+    db.commit()
+    db.refresh(current_user)
+    return {"user": UserOut.model_validate(current_user).model_dump(by_alias=True)}
+
+
 @router.get("/oauth/{provider}")
-def oauth_start(provider: str, redirect: str = "/"):
+def oauth_start(provider: str, redirect: str = "/", avatar: str = DEFAULT_AVATAR):
     provider = provider.lower().strip()
     safe_redirect = sanitize_redirect(redirect)
+    safe_avatar = sanitize_avatar(avatar)
 
     if provider != "google":
         raise HTTPException(
@@ -111,14 +137,15 @@ def oauth_start(provider: str, redirect: str = "/"):
 
     if not settings.google_client_id or not settings.google_client_secret:
         return _frontend_redirect(
-            "/signup",
+            "/",
             {
+                "auth": "signup",
                 "error": "Google sign-up is not configured yet. Please continue with email.",
                 "from": safe_redirect,
             },
         )
 
-    state = make_oauth_state(safe_redirect)
+    state = make_oauth_state(safe_redirect, safe_avatar)
     return RedirectResponse(
         url=google_authorize_url(state, _oauth_callback_uri("google")),
         status_code=status.HTTP_302_FOUND,
@@ -140,21 +167,22 @@ def oauth_callback(
     if error:
         message = error_description or error or "Social sign-in was cancelled"
         return _frontend_redirect(
-            "/signup",
-            {"error": message, "from": fallback_redirect},
+            "/",
+            {"auth": "signup", "error": message, "from": fallback_redirect},
         )
 
     if not code or not state:
         return _frontend_redirect(
-            "/signup",
+            "/",
             {
+                "auth": "signup",
                 "error": "Social sign-in failed. Please try again.",
                 "from": fallback_redirect,
             },
         )
 
     try:
-        redirect_to = parse_oauth_state(state)
+        redirect_to, avatar = parse_oauth_state(state)
         callback_uri = _oauth_callback_uri(provider)
 
         if provider != "google":
@@ -165,7 +193,9 @@ def oauth_callback(
 
         profile = exchange_google_code(code, callback_uri)
 
-        user = _get_or_create_oauth_user(db, email=profile["email"])
+        user = _get_or_create_oauth_user(
+            db, email=profile["email"], avatar=avatar
+        )
         auth = _auth_response(user)
         return _frontend_redirect(
             "/oauth/callback",
@@ -176,16 +206,18 @@ def oauth_callback(
         )
     except HTTPException as exc:
         return _frontend_redirect(
-            "/signup",
+            "/",
             {
+                "auth": "signup",
                 "error": str(exc.detail),
                 "from": fallback_redirect,
             },
         )
     except Exception:
         return _frontend_redirect(
-            "/signup",
+            "/",
             {
+                "auth": "signup",
                 "error": "Social sign-in failed. Please try again.",
                 "from": fallback_redirect,
             },

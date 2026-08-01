@@ -12,6 +12,7 @@ from typing import Any
 from fastapi import HTTPException, status
 
 from app.config import settings
+from app.schemas import ALLOWED_AVATARS, DEFAULT_AVATAR
 
 OAUTH_STATE_MAX_AGE_SECONDS = 60 * 10
 
@@ -25,9 +26,19 @@ def _b64url_decode(value: str) -> bytes:
     return base64.urlsafe_b64decode(value + padding)
 
 
-def make_oauth_state(redirect: str) -> str:
+def sanitize_avatar(avatar: str | None) -> str:
+    if not avatar:
+        return DEFAULT_AVATAR
+    normalized = avatar.strip().lower()
+    if normalized not in ALLOWED_AVATARS:
+        return DEFAULT_AVATAR
+    return normalized
+
+
+def make_oauth_state(redirect: str, avatar: str = DEFAULT_AVATAR) -> str:
     payload = {
         "r": redirect,
+        "a": sanitize_avatar(avatar),
         "t": int(time.time()),
         "n": secrets.token_hex(8),
     }
@@ -40,7 +51,7 @@ def make_oauth_state(redirect: str) -> str:
     return f"{raw}.{sig}"
 
 
-def parse_oauth_state(state: str) -> str:
+def parse_oauth_state(state: str) -> tuple[str, str]:
     try:
         raw, sig = state.split(".", 1)
     except ValueError as exc:
@@ -77,8 +88,10 @@ def parse_oauth_state(state: str) -> str:
 
     redirect = payload.get("r", "/")
     if not isinstance(redirect, str) or not redirect.startswith("/") or redirect.startswith("//"):
-        return "/"
-    return redirect
+        redirect = "/"
+
+    avatar = sanitize_avatar(payload.get("a") if isinstance(payload.get("a"), str) else None)
+    return redirect, avatar
 
 
 def sanitize_redirect(redirect: str | None) -> str:

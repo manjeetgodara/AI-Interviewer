@@ -18,9 +18,16 @@ def apply_schema_updates() -> None:
         return
 
     columns = {column["name"] for column in inspector.get_columns("users")}
-    if "full_name" in columns:
-        with engine.begin() as conn:
+    with engine.begin() as conn:
+        if "full_name" in columns:
             conn.execute(text("ALTER TABLE users DROP COLUMN full_name"))
+        if "avatar" not in columns:
+            conn.execute(
+                text(
+                    "ALTER TABLE users "
+                    "ADD COLUMN avatar VARCHAR(32) NOT NULL DEFAULT 'coral'"
+                )
+            )
 
 
 def get_db():

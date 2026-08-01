@@ -4,6 +4,7 @@ const USER_KEY = 'merra_user'
 export type AuthUser = {
   id: string
   email: string
+  avatar?: string
   createdAt: string
 }
 
@@ -62,7 +63,11 @@ export function clearSession() {
   localStorage.removeItem(USER_KEY)
 }
 
-export function signup(input: { email: string; password: string }) {
+export function signup(input: {
+  email: string
+  password: string
+  avatar: string
+}) {
   return request<AuthResponse>('/api/auth/signup', {
     method: 'POST',
     body: JSON.stringify(input),
@@ -80,13 +85,29 @@ export function fetchMe() {
   return request<{ user: AuthUser }>('/api/auth/me')
 }
 
+export function updateAvatar(avatar: string) {
+  return request<{ user: AuthUser }>('/api/auth/me/avatar', {
+    method: 'PATCH',
+    body: JSON.stringify({ avatar }),
+  })
+}
+
+export function setStoredUser(user: AuthUser) {
+  localStorage.setItem(USER_KEY, JSON.stringify(user))
+}
+
 export type OAuthProvider = 'google'
 
 /** Redirects the browser to the backend OAuth start endpoint. */
-export function startOAuth(provider: OAuthProvider, redirectTo = '/') {
+export function startOAuth(
+  provider: OAuthProvider,
+  redirectTo = '/',
+  avatar?: string,
+) {
   const params = new URLSearchParams({
     redirect: redirectTo,
   })
+  if (avatar) params.set('avatar', avatar)
   window.location.assign(`/api/auth/oauth/${provider}?${params.toString()}`)
 }
 

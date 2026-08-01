@@ -1,13 +1,16 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { History, Menu, X } from 'lucide-react'
 import { MerraLogo, Button } from '@/components/ui'
 import { useAuth } from '@/context/AuthContext'
+import { useAuthModal } from '@/context/AuthModalContext'
 import { UserAvatar } from './UserAvatar'
 
 export function Navbar() {
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const { isAuthenticated, user, logout } = useAuth()
+  const { openAuth } = useAuthModal()
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-white/75 backdrop-blur-md">
@@ -27,16 +30,20 @@ export function Navbar() {
             <UserAvatar />
           ) : (
             <>
-              <Link to="/signin">
-                <Button variant="ghost" size="sm">
-                  Sign In
-                </Button>
-              </Link>
-              <Link to="/signup">
-                <Button variant="primary" size="sm">
-                  Sign Up
-                </Button>
-              </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => openAuth('signin')}
+              >
+                Sign In
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => openAuth('signup')}
+              >
+                Sign Up
+              </Button>
             </>
           )}
         </div>
@@ -68,9 +75,16 @@ export function Navbar() {
             </button>
             {isAuthenticated ? (
               <div className="border-t border-border pt-3">
-                <p className="truncate px-1 text-sm font-semibold text-ink">
+                <button
+                  type="button"
+                  className="w-full truncate rounded-xl px-1 py-2 text-left text-sm font-semibold text-ink transition-colors hover:bg-surface cursor-pointer border-0 bg-transparent"
+                  onClick={() => {
+                    setOpen(false)
+                    navigate('/profile')
+                  }}
+                >
                   {user?.email}
-                </p>
+                </button>
                 <Button
                   variant="outline"
                   size="md"
@@ -85,16 +99,28 @@ export function Navbar() {
               </div>
             ) : (
               <>
-                <Link to="/signin" onClick={() => setOpen(false)}>
-                  <Button variant="outline" size="md" className="w-full">
-                    Sign In
-                  </Button>
-                </Link>
-                <Link to="/signup" onClick={() => setOpen(false)}>
-                  <Button variant="primary" size="md" className="w-full">
-                    Sign Up
-                  </Button>
-                </Link>
+                <Button
+                  variant="outline"
+                  size="md"
+                  className="w-full"
+                  onClick={() => {
+                    setOpen(false)
+                    openAuth('signin')
+                  }}
+                >
+                  Sign In
+                </Button>
+                <Button
+                  variant="primary"
+                  size="md"
+                  className="w-full"
+                  onClick={() => {
+                    setOpen(false)
+                    openAuth('signup')
+                  }}
+                >
+                  Sign Up
+                </Button>
               </>
             )}
           </div>

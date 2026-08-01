@@ -54,4 +54,4 @@ App: `http://localhost:5173`
 | POST | `/api/auth/signin` | `{ "email", "password" }` |
 | GET | `/api/auth/me` | Bearer token |
 
-Pages: `/signin`, `/signup`
+Auth UI: Sign In / Sign Up open as a popup on the landing page (`?auth=signin` / `?auth=signup`).

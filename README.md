@@ -1,4 +1,6 @@
-# AI Interviewer (Merra)
+# Merra — Practice Job Interviews with AI
+
+Merra helps job seekers practice real job interviews with an AI interviewer. Upload a resume, pick a target role, rehearse a live back-and-forth conversation, and get a match-fit score with feedback and a full transcript.
 
 ## Backend (Python + FastAPI + PostgreSQL)
 

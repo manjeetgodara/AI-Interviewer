@@ -1,6 +1,6 @@
 # Merra Frontend
 
-React landing page for the Merra conversational AI interview platform.
+React app for Merra — practice job interviews with AI. Includes the marketing landing page, auth, interview setup, and practice session UI.
 
 ## Stack
 

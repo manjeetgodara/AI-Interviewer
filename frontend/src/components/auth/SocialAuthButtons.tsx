@@ -42,10 +42,10 @@ export function SocialAuthButtons({
         onClick={onContinue}
         className={[
           'inline-flex h-12 w-full items-center justify-center gap-3 rounded-full',
-          'border border-border bg-white px-5 text-sm font-semibold text-ink',
+          'border border-border bg-surface px-5 text-sm font-semibold text-ink',
           'transition-colors duration-200',
-          'hover:border-brand-400 hover:bg-surface',
-          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500',
+          'hover:border-brand-400 hover:bg-brand-50',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-400',
           'disabled:cursor-not-allowed disabled:opacity-50',
         ].join(' ')}
       >

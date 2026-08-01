@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Mic } from 'lucide-react'
-import { Button, MerraLogo } from '@/components/ui'
+import { Button, MerraLogo, ThemeToggle } from '@/components/ui'
 
 const COUNTDOWN_SECONDS = 10
 
@@ -35,14 +35,17 @@ export function InterviewPage() {
   }, [secondsLeft, navigate, state])
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[linear-gradient(165deg,#f4f7ff_0%,#ffffff_42%,#eef3ff_100%)]">
+    <div className="relative min-h-screen overflow-hidden bg-canvas">
+      <div className="absolute right-4 top-4 z-10 sm:right-6 sm:top-6">
+        <ThemeToggle />
+      </div>
       <div className="relative mx-auto flex min-h-screen w-full max-w-lg flex-col justify-center px-5 py-12">
         <div className="mb-8 flex justify-center">
-          <MerraLogo size="lg" className="items-center text-brand-600 [&_span]:text-ink" />
+          <MerraLogo size="lg" className="items-center text-brand-400 [&_span]:text-ink" />
         </div>
 
-        <div className="rounded-3xl border border-border/80 bg-white/90 p-8 text-center shadow-[0_20px_60px_-28px_rgba(26,24,72,0.28)] backdrop-blur-sm">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+        <div className="rounded-3xl border border-border/80 bg-surface-elevated/90 p-8 text-center shadow-[0_20px_60px_-28px_rgba(0,0,0,0.5)] backdrop-blur-sm">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-400">
             <Mic size={26} aria-hidden />
           </div>
           <h1 className="mt-5 text-2xl font-extrabold tracking-tight text-ink">
@@ -82,7 +85,7 @@ export function InterviewPage() {
                   stroke="currentColor"
                   strokeWidth="4"
                   strokeLinecap="round"
-                  className="text-brand-600 transition-[stroke-dashoffset] duration-1000 ease-linear"
+                  className="text-brand-400 transition-[stroke-dashoffset] duration-1000 ease-linear"
                   strokeDasharray={`${2 * Math.PI * 34}`}
                   strokeDashoffset={`${
                     2 * Math.PI * 34 * (1 - secondsLeft / COUNTDOWN_SECONDS)

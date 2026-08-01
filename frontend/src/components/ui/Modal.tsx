@@ -54,7 +54,7 @@ export function Modal({
     <div className="fixed inset-0 z-[100] flex items-end justify-center p-4 sm:items-center">
       <button
         type="button"
-        className="absolute inset-0 border-0 bg-ink/45 backdrop-blur-[2px] cursor-pointer"
+        className="absolute inset-0 border-0 bg-canvas/70 backdrop-blur-[2px] cursor-pointer"
         aria-label="Close dialog"
         onClick={onClose}
       />
@@ -65,7 +65,7 @@ export function Modal({
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={describedById}
-        className="relative z-10 max-h-[min(90vh,720px)] w-full max-w-md overflow-y-auto rounded-2xl border border-border/80 bg-white p-6 shadow-[0_24px_80px_-20px_rgba(26,24,72,0.35)] sm:p-8"
+        className="relative z-10 max-h-[min(90vh,720px)] w-full max-w-md overflow-y-auto rounded-2xl border border-border/80 bg-surface-elevated p-6 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.55)] sm:p-8"
       >
         <button
           type="button"

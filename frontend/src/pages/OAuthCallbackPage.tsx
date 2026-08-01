@@ -55,7 +55,7 @@ export function OAuthCallbackPage() {
             Having trouble?{' '}
             <Link
               to="/?auth=signup"
-              className="font-semibold text-brand-600 no-underline hover:text-brand-700"
+              className="font-semibold text-brand-400 no-underline hover:text-brand-300"
             >
               Back to sign up
             </Link>
@@ -66,12 +66,12 @@ export function OAuthCallbackPage() {
       }
     >
       {error ? (
-        <p className="rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700">
+        <p className="rounded-xl border border-danger/40 bg-danger/10 px-3.5 py-2.5 text-sm text-danger">
           {error}
         </p>
       ) : (
         <div className="flex flex-col items-center gap-3 py-6 text-ink-muted">
-          <LoaderCircle className="animate-spin text-brand-600" size={28} aria-hidden />
+          <LoaderCircle className="animate-spin text-brand-400" size={28} aria-hidden />
           <p className="text-sm font-medium">Completing sign-in…</p>
         </div>
       )}

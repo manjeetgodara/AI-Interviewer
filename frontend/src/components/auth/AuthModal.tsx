@@ -108,7 +108,7 @@ export function AuthModal() {
       header={
         <MerraLogo
           size="md"
-          className="text-brand-600 [&_span]:text-ink"
+          className="text-brand-400 [&_span]:text-ink"
         />
       }
     >
@@ -165,7 +165,7 @@ export function AuthModal() {
 
           {error ? (
             <p
-              className="rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+              className="rounded-xl border border-danger/40 bg-danger/10 px-3.5 py-2.5 text-sm text-danger"
               role="alert"
             >
               {error}

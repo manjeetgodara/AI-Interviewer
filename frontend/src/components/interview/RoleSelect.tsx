@@ -75,10 +75,10 @@ export function RoleSelect({
         aria-controls={listId}
         onClick={() => setOpen((prev) => !prev)}
         className={[
-          'flex h-11 w-full items-center justify-between gap-3 rounded-xl border bg-white px-3.5 text-left text-sm',
+          'flex h-11 w-full items-center justify-between gap-3 rounded-xl border bg-surface-elevated px-3.5 text-left text-sm',
           'outline-none transition-[border-color,box-shadow]',
-          'focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20',
-          error && !role ? 'border-red-400' : 'border-border',
+          'focus:border-brand-400 focus:ring-2 focus:ring-brand-500/25',
+          error && !role ? 'border-danger' : 'border-border',
         ].join(' ')}
       >
         <span className={role ? 'font-medium text-ink' : 'text-ink-soft'}>
@@ -92,7 +92,7 @@ export function RoleSelect({
       </button>
 
       {open ? (
-        <div className="absolute z-20 mt-2 w-full overflow-hidden rounded-2xl border border-border bg-white shadow-[0_18px_40px_-24px_rgba(26,24,72,0.35)]">
+        <div className="absolute z-20 mt-2 w-full overflow-hidden rounded-2xl border border-border bg-surface-elevated shadow-[0_18px_40px_-24px_rgba(0,0,0,0.55)]">
           <div className="border-b border-border p-2">
             <div className="relative">
               <Search
@@ -105,7 +105,7 @@ export function RoleSelect({
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search roles…"
-                className="h-10 w-full rounded-xl border border-border bg-surface pl-9 pr-3 text-sm text-ink outline-none placeholder:text-ink-soft focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+                className="h-10 w-full rounded-xl border border-border bg-surface pl-9 pr-3 text-sm text-ink outline-none placeholder:text-ink-soft focus:border-brand-400 focus:ring-2 focus:ring-brand-500/25"
               />
             </div>
           </div>
@@ -130,7 +130,7 @@ export function RoleSelect({
                       className={[
                         'flex w-full items-center justify-between gap-2 rounded-xl px-3 py-2.5 text-left text-sm transition-colors',
                         selected
-                          ? 'bg-brand-50 font-semibold text-brand-700'
+                          ? 'bg-brand-50 font-semibold text-brand-400'
                           : 'text-ink hover:bg-surface',
                       ].join(' ')}
                     >
@@ -146,7 +146,7 @@ export function RoleSelect({
       ) : null}
 
       {error && !role ? (
-        <p className="mt-1.5 text-xs text-red-600">{error}</p>
+        <p className="mt-1.5 text-xs text-danger">{error}</p>
       ) : (
         <p className="mt-1.5 text-xs text-ink-soft">
           Choose the role you want to practice interviewing for

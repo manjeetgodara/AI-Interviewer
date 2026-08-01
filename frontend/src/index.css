@@ -5,21 +5,46 @@
 @theme {
   --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
+  /* Light defaults */
+  --color-brand-50: #f0efff;
+  --color-brand-100: #e4e1ff;
+  --color-brand-200: #c8c2ff;
+  --color-brand-300: #9f94f5;
+  --color-brand-400: #7c6df0;
+  --color-brand-500: #6d5ce6;
+  --color-brand-600: #5a4ad4;
+  --color-brand-700: #4a3bb8;
 
   --color-ink: #1a1848;
   --color-ink-muted: #5b5a7a;
   --color-ink-soft: #8b8aa3;
-  --color-surface: #f7f8fc;
+  --color-surface: #f4f5fb;
   --color-surface-elevated: #ffffff;
-  --color-border: #e8e9f0;
+  --color-border: #e4e5ef;
   --color-success: #22c55e;
+  --color-danger: #e85d5d;
+  --color-canvas: #ffffff;
+}
+
+.dark {
+  --color-brand-50: #17132e;
+  --color-brand-100: #221c42;
+  --color-brand-200: #3a316e;
+  --color-brand-300: #6f62d9;
+  --color-brand-400: #8b7cf6;
+  --color-brand-500: #7c6df0;
+  --color-brand-600: #6d5ce6;
+  --color-brand-700: #5a4ad4;
+
+  --color-ink: #f2f2f7;
+  --color-ink-muted: #a1a1b5;
+  --color-ink-soft: #6e6e85;
+  --color-surface: #0c0c12;
+  --color-surface-elevated: #16161f;
+  --color-border: #2a2a38;
+  --color-success: #34d399;
+  --color-danger: #e85d5d;
+  --color-canvas: #09090f;
 }
 
 *,
@@ -30,6 +55,11 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -37,27 +67,9 @@ body {
   min-width: 320px;
   font-family: var(--font-sans);
   color: var(--color-ink);
-  background: #ffffff;
+  background: var(--color-canvas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.dark {
-  --color-ink: #eef0f8;
-  --color-ink-muted: #a8acc4;
-  --color-ink-soft: #7c819c;
-  --color-surface: #15182a;
-  --color-surface-elevated: #1c2035;
-  --color-border: #2c3148;
-  --color-brand-50: #172554;
-  --color-brand-100: #1e3a5f;
-  --color-brand-200: #1e40af;
-}
-
-.dark body,
-html.dark body {
-  background: #0f1220;
-  color: var(--color-ink);
 }
 
 #root {
@@ -67,4 +79,9 @@ html.dark body {
 button,
 a {
   font-family: inherit;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-brand-500) 40%, transparent);
+  color: var(--color-ink);
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { History, Menu, X } from 'lucide-react'
-import { MerraLogo, Button } from '@/components/ui'
+import { MerraLogo, Button, ThemeToggle } from '@/components/ui'
 import { useAuth } from '@/context/AuthContext'
 import { useAuthModal } from '@/context/AuthModalContext'
 import { UserAvatar } from './UserAvatar'
@@ -13,18 +13,20 @@ export function Navbar() {
   const { openAuth } = useAuthModal()
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-white/75 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border/60 bg-canvas/75 backdrop-blur-md">
       <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-3 px-5 lg:px-8">
         <MerraLogo size="md" />
 
         <div className="hidden items-center gap-3 lg:flex">
           <button
             type="button"
-            className="inline-flex h-9 items-center gap-2 rounded-full border border-border bg-white px-3.5 text-[13px] font-semibold text-ink transition-colors hover:bg-surface cursor-pointer"
+            className="inline-flex h-9 items-center gap-2 rounded-full border border-border bg-surface-elevated px-3.5 text-[13px] font-semibold text-ink transition-colors hover:bg-brand-50 cursor-pointer"
           >
             <History size={15} aria-hidden />
             View History
           </button>
+
+          <ThemeToggle />
 
           {isAuthenticated ? (
             <UserAvatar />
@@ -49,6 +51,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
           {isAuthenticated && <UserAvatar />}
           <button
             type="button"
@@ -63,12 +66,13 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-white px-5 py-4 lg:hidden">
+        <div className="border-t border-border bg-surface px-5 py-4 lg:hidden">
           <div className="flex flex-col gap-3">
+            <ThemeToggle showLabel className="w-full" />
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-border bg-white text-sm font-semibold text-ink cursor-pointer"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-border bg-surface-elevated text-sm font-semibold text-ink cursor-pointer"
             >
               <History size={15} aria-hidden />
               View History

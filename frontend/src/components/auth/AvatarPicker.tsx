@@ -41,7 +41,7 @@ export function AvatarPicker({
                 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500',
                 'disabled:cursor-not-allowed disabled:opacity-50',
                 selected
-                  ? 'border-brand-600 bg-brand-50 shadow-sm shadow-brand-600/15'
+                  ? 'border-brand-400 bg-brand-50 shadow-sm shadow-brand-600/25'
                   : 'border-transparent bg-surface hover:border-border',
               ].join(' ')}
             >

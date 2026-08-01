@@ -6,6 +6,19 @@ import { FeatureList } from './FeatureList'
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-14 pb-10 sm:pt-20 sm:pb-14">
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden
+        style={{
+          backgroundImage: `
+            radial-gradient(ellipse 70% 55% at 50% -10%, rgba(124, 109, 240, 0.22), transparent 55%),
+            radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1px)
+          `,
+          backgroundSize: 'auto, 72px 72px',
+          backgroundPosition: 'center, 0 0',
+        }}
+      />
+
       <div className="relative mx-auto max-w-3xl px-5 text-center">
         <h1 className="text-[2.15rem] font-extrabold leading-[1.15] tracking-tight text-ink sm:text-5xl lg:text-[3.35rem]">
           Practice job interviews with AI

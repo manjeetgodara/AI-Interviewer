@@ -124,9 +124,9 @@ export function ResumeUpload({
             'rounded-2xl border border-dashed px-5 py-8 text-center transition-colors',
             'cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-brand-500/30',
             dragOver
-              ? 'border-brand-500 bg-brand-50'
+              ? 'border-brand-400 bg-brand-50'
               : displayError
-                ? 'border-red-300 bg-red-50/40'
+                ? 'border-danger/50 bg-danger/10'
                 : 'border-border bg-surface hover:border-brand-400 hover:bg-brand-50/50',
             uploading ? 'pointer-events-none' : '',
           ].join(' ')}
@@ -134,7 +134,7 @@ export function ResumeUpload({
           {uploading ? (
             <div className="mx-auto max-w-xs">
               <LoaderCircle
-                className="mx-auto animate-spin text-brand-600"
+                className="mx-auto animate-spin text-brand-400"
                 size={28}
                 aria-hidden
               />
@@ -143,7 +143,7 @@ export function ResumeUpload({
               </p>
               <div className="mt-4 h-2 overflow-hidden rounded-full bg-brand-100">
                 <div
-                  className="h-full rounded-full bg-brand-600 transition-[width] duration-150"
+                  className="h-full rounded-full bg-brand-500 transition-[width] duration-150"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -151,12 +151,12 @@ export function ResumeUpload({
             </div>
           ) : (
             <>
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 text-brand-400">
                 <Upload size={22} aria-hidden />
               </div>
               <p className="mt-3 text-sm font-semibold text-ink">
                 Drag & drop your resume, or{' '}
-                <span className="text-brand-600">browse</span>
+                <span className="text-brand-400">browse</span>
               </p>
               <p className="mt-1.5 text-xs text-ink-muted">
                 PDF or DOCX · Max {formatFileSize(MAX_RESUME_BYTES)}
@@ -167,7 +167,7 @@ export function ResumeUpload({
       ) : (
         <div className="rounded-2xl border border-border bg-surface px-4 py-4">
           <div className="flex items-start gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-400">
               <FileText size={20} aria-hidden />
             </div>
             <div className="min-w-0 flex-1">
@@ -181,7 +181,7 @@ export function ResumeUpload({
                 <button
                   type="button"
                   onClick={() => inputRef.current?.click()}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:border-brand-400 hover:text-brand-600"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-elevated px-3 py-1.5 text-xs font-semibold text-ink transition-colors hover:border-brand-400 hover:text-brand-400"
                 >
                   <Replace size={13} aria-hidden />
                   Replace
@@ -192,7 +192,7 @@ export function ResumeUpload({
                     setLocalError('')
                     onRemove()
                   }}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-3 py-1.5 text-xs font-semibold text-ink-muted transition-colors hover:border-red-300 hover:text-red-600"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-elevated px-3 py-1.5 text-xs font-semibold text-ink-muted transition-colors hover:border-danger/50 hover:text-danger"
                 >
                   <Trash2 size={13} aria-hidden />
                   Remove
@@ -204,7 +204,7 @@ export function ResumeUpload({
       )}
 
       {displayError ? (
-        <p className="mt-1.5 text-xs text-red-600">{displayError}</p>
+        <p className="mt-1.5 text-xs text-danger">{displayError}</p>
       ) : (
         <p className="mt-1.5 text-xs text-ink-soft">
           Supported formats: PDF, DOCX · Maximum file size:{' '}

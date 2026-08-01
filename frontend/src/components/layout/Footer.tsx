@@ -6,7 +6,7 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-brand-100 bg-white">
+    <footer className="border-t border-border bg-canvas">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-6 sm:flex-row sm:items-center sm:justify-between lg:px-8">
         <p className="text-sm text-ink-muted">©Trymerra.ai</p>
 

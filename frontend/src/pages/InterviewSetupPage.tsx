@@ -8,7 +8,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { ResumeUpload, RoleSelect } from '@/components/interview'
-import { Button, Input, MerraLogo } from '@/components/ui'
+import { Button, Input, MerraLogo, ThemeToggle } from '@/components/ui'
 import { useInterviewSetup } from '@/context/InterviewSetupContext'
 import { submitInterviewSetup } from '@/lib/interviewApi'
 import { isValidGitHubUrl } from '@/lib/interviewSetup'
@@ -109,31 +109,34 @@ export function InterviewSetupPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[linear-gradient(165deg,#f4f7ff_0%,#ffffff_42%,#eef3ff_100%)]">
+    <div className="relative min-h-screen overflow-hidden bg-canvas">
       <div
-        className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full bg-brand-200/40 blur-3xl"
+        className="pointer-events-none absolute -left-24 top-16 h-72 w-72 rounded-full bg-brand-500/15 blur-3xl"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-brand-100/70 blur-3xl"
+        className="pointer-events-none absolute -right-20 bottom-10 h-80 w-80 rounded-full bg-brand-400/10 blur-3xl"
         aria-hidden
       />
 
       <div className="relative mx-auto w-full max-w-xl px-5 py-10 sm:py-14">
         <div className="mb-8 flex items-center justify-between gap-4">
-          <MerraLogo size="md" className="text-brand-600 [&_span]:text-ink" />
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted no-underline transition-colors hover:text-ink"
-          >
-            <ArrowLeft size={15} aria-hidden />
-            Back
-          </Link>
+          <MerraLogo size="md" className="text-brand-400 [&_span]:text-ink" />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted no-underline transition-colors hover:text-ink"
+            >
+              <ArrowLeft size={15} aria-hidden />
+              Back
+            </Link>
+          </div>
         </div>
 
-        <div className="rounded-3xl border border-border/80 bg-white/90 p-6 shadow-[0_20px_60px_-28px_rgba(26,24,72,0.28)] backdrop-blur-sm sm:p-8">
+        <div className="rounded-3xl border border-border/80 bg-surface-elevated/90 p-6 shadow-[0_20px_60px_-28px_rgba(0,0,0,0.5)] backdrop-blur-sm sm:p-8">
           <div className="flex items-start gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-600">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-400">
               <Sparkles size={20} aria-hidden />
             </div>
             <div>
@@ -164,7 +167,7 @@ export function InterviewSetupPage() {
             <div className="h-px bg-border" />
 
             <div className="flex items-center gap-2 text-ink">
-              <Briefcase size={16} className="text-brand-600" aria-hidden />
+              <Briefcase size={16} className="text-brand-400" aria-hidden />
               <h2 className="text-sm font-bold tracking-wide text-ink uppercase">
                 Role details
               </h2>
@@ -227,7 +230,7 @@ export function InterviewSetupPage() {
 
             {submitError ? (
               <p
-                className="rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700"
+                className="rounded-xl border border-danger/40 bg-danger/10 px-3.5 py-2.5 text-sm text-danger"
                 role="alert"
               >
                 {submitError}

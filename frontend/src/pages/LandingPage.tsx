@@ -8,7 +8,7 @@ import {
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#f8f9fd_45%,#ffffff_100%)]">
+    <div className="min-h-screen bg-canvas">
       <Navbar />
       <main>
         <Hero />

@@ -56,7 +56,7 @@ export function UserAvatar({ className = '' }: UserAvatarProps) {
       </button>
 
       {menuOpen && (
-        <div className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-xl border border-border bg-white py-1 shadow-lg">
+        <div className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-xl border border-border bg-surface-elevated py-1 shadow-lg shadow-black/40">
           <button
             type="button"
             onClick={openProfile}

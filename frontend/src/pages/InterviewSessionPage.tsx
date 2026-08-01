@@ -1,165 +1,65 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { PhoneOff } from 'lucide-react'
-import { Button, MerraLogo } from '@/components/ui'
-import dummyInterviewer from '@/assets/dummy-interviewer.svg'
+import { AvatarFace } from '@/components/auth/AvatarFace'
+import { InterviewStage } from '@/components/interview/InterviewStage'
+import { getInitials, useAuth } from '@/context/AuthContext'
+import { getAvatarOption, isAvatarId } from '@/lib/avatars'
 import dummyCandidate from '@/assets/dummy-candidate.svg'
-import { ParticipantTabs } from '@/components/landing/DashboardMockup/ParticipantTabs'
-import { VideoFeed } from '@/components/landing/DashboardMockup/VideoFeed'
-import { ChatHistory } from '@/components/landing/DashboardMockup/ChatHistory'
 import type { InterviewLocationState } from '@/pages/InterviewPage'
-
-const PARTICIPANTS = [
-  {
-    id: 'merra',
-    name: 'AI Interviewer',
-    role: 'Merra',
-    label: 'AI Interviewer · Merra',
-    imageUrl: dummyInterviewer,
-    alt: 'AI Interviewer Merra placeholder',
-    online: true,
-  },
-  {
-    id: 'candidate',
-    name: 'Candidate',
-    role: 'Live session',
-    label: 'Candidate',
-    imageUrl: dummyCandidate,
-    alt: 'Candidate placeholder',
-  },
-] as const
-
-const CHAT_BY_PARTICIPANT: Record<string, { id: string; text: string }[]> = {
-  merra: [
-    {
-      id: '1',
-      text: "Hey, I'm Merra. Let's practice your job interview together.",
-    },
-    {
-      id: '2',
-      text: "I'll ask real interview questions and follow up — just like a live interview.",
-    },
-    {
-      id: '3',
-      text: 'Tell me about a time you had to ship under a tight deadline.',
-    },
-    {
-      id: '4',
-      text: 'What trade-offs did you make, and how did you communicate them?',
-    },
-  ],
-  candidate: [
-    {
-      id: '1',
-      text: 'In my last sprint we had three days left and a critical bug in checkout.',
-    },
-    {
-      id: '2',
-      text: 'I cut non-essential scope, paired with QA, and shipped a hotfix the same day.',
-    },
-    {
-      id: '3',
-      text: 'I kept stakeholders updated every few hours so expectations stayed clear.',
-    },
-  ],
-}
-
-function formatSessionClock(date: Date) {
-  return date.toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  })
-}
-
-function formatSessionDate(date: Date) {
-  return date
-    .toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    })
-    .toUpperCase()
-}
 
 export function InterviewSessionPage() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const state = (location.state as InterviewLocationState | null) ?? {}
-  const [selectedId, setSelectedId] = useState('merra')
-  const [now, setNow] = useState(() => new Date())
 
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(new Date()), 30_000)
-    return () => window.clearInterval(timer)
-  }, [])
+  const candidateLabel = useMemo(() => {
+    if (!user?.email) return 'Candidate'
+    const local = user.email.split('@')[0] ?? 'Candidate'
+    return local
+      .replace(/[._-]+/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase())
+  }, [user?.email])
 
-  const selected =
-    PARTICIPANTS.find((p) => p.id === selectedId) ?? PARTICIPANTS[0]
-  const messages = CHAT_BY_PARTICIPANT[selectedId] ?? CHAT_BY_PARTICIPANT.merra
+  const candidateAvatar = isAvatarId(user?.avatar)
+    ? getAvatarOption(user.avatar)
+    : null
+  const initials = user?.email ? getInitials(user.email) : 'YOU'
 
-  const timeLabel = useMemo(() => formatSessionClock(now), [now])
-  const dateLabel = useMemo(() => formatSessionDate(now), [now])
+  const title = state.role
+    ? `${state.role} practice interview`
+    : 'Practice interview'
+  const subtitle = state.resumeName
+    ? `Interview session · ${state.resumeName}`
+    : 'Interview session'
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-surface px-4 py-6 sm:px-6 lg:px-8">
-      <div className="w-full max-w-[90rem] rounded-2xl border border-border bg-white p-4 shadow-[0_24px_80px_-20px_rgba(26,24,72,0.18)] sm:p-5 lg:p-6">
-        <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-col gap-1">
-            <MerraLogo size="sm" className="shrink-0" />
-            {state.role ? (
-              <p className="text-xs font-medium text-ink-muted">
-                {state.role} practice interview
-                {state.resumeName ? ` · ${state.resumeName}` : ''}
-              </p>
-            ) : null}
+    <InterviewStage
+      title={title}
+      subtitle={subtitle}
+      candidateLabel={candidateLabel}
+      onEnd={() => navigate('/', { replace: true })}
+      showThemeToggle
+      className="min-h-screen bg-canvas"
+      candidateAvatar={
+        candidateAvatar ? (
+          <div className="overflow-hidden rounded-full shadow-[0_12px_40px_-12px_rgba(124,109,240,0.35)] ring-4 ring-ink/90">
+            <AvatarFace avatar={candidateAvatar} size={128} />
           </div>
-          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
-            <ParticipantTabs
-              tabs={PARTICIPANTS.map(({ id, label, online }) => ({
-                id,
-                label,
-                online,
-              }))}
-              selectedId={selectedId}
-              onSelect={setSelectedId}
-            />
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/', { replace: true })}
-              className="border-red-200 text-red-600 hover:border-red-400 hover:text-red-700"
-            >
-              <PhoneOff size={14} aria-hidden />
-              End Practice
-            </Button>
+        ) : user ? (
+          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-brand-600 text-2xl font-bold tracking-wide text-white shadow-[0_12px_40px_-12px_rgba(124,109,240,0.45)] ring-4 ring-ink/90 sm:h-32 sm:w-32 sm:text-3xl">
+            {initials}
           </div>
-        </div>
-
-        <div className="flex flex-col gap-4 lg:flex-row">
-          <div className="min-w-0 flex-1">
-            <VideoFeed
-              timeLabel={timeLabel}
-              dateLabel={dateLabel}
-              selectedId={selectedId}
-              participants={PARTICIPANTS.map(
-                ({ id, name, role, imageUrl, alt }) => ({
-                  id,
-                  name,
-                  role,
-                  imageUrl,
-                  alt,
-                }),
-              )}
+        ) : (
+          <div className="h-28 w-28 overflow-hidden rounded-full shadow-[0_12px_40px_-12px_rgba(0,0,0,0.45)] ring-4 ring-ink/90 sm:h-32 sm:w-32">
+            <img
+              src={dummyCandidate}
+              alt="Candidate"
+              className="h-full w-full object-cover"
             />
           </div>
-
-          <ChatHistory
-            title={`Chat History — ${selected.name}`}
-            messages={messages}
-          />
-        </div>
-      </div>
-    </div>
+        )
+      }
+    />
   )
 }

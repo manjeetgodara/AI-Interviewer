@@ -22,16 +22,16 @@ export function Input({
       <input
         id={inputId}
         className={[
-          'h-11 w-full rounded-xl border bg-white px-3.5 text-sm text-ink',
+          'h-11 w-full rounded-xl border bg-surface-elevated px-3.5 text-sm text-ink',
           'placeholder:text-ink-soft outline-none transition-[border-color,box-shadow]',
-          'focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20',
-          error ? 'border-red-400' : 'border-border',
+          'focus:border-brand-400 focus:ring-2 focus:ring-brand-500/25',
+          error ? 'border-danger' : 'border-border',
           className,
         ].join(' ')}
         {...props}
       />
       {error ? (
-        <span className="mt-1.5 block text-xs text-red-600">{error}</span>
+        <span className="mt-1.5 block text-xs text-danger">{error}</span>
       ) : null}
     </label>
   )

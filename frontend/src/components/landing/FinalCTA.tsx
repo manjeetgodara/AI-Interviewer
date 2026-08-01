@@ -4,9 +4,9 @@ import { Button, MerraLogo, RevealOnScroll } from '@/components/ui'
 
 export function FinalCTA() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 sm:py-20">
+    <section className="relative overflow-hidden bg-canvas py-16 sm:py-20">
       <div
-        className="pointer-events-none absolute left-1/2 top-[55%] h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-300/30 blur-3xl sm:h-96 sm:w-96"
+        className="pointer-events-none absolute left-1/2 top-[55%] h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-500/20 blur-3xl sm:h-96 sm:w-96"
         aria-hidden
       />
 
@@ -14,7 +14,7 @@ export function FinalCTA() {
         <div className="relative mx-auto flex max-w-3xl flex-col items-center px-5 text-center">
           <MerraLogo
             size="lg"
-            className="items-center text-brand-600 [&_span]:text-ink"
+            className="items-center text-brand-400 [&_span]:text-ink"
           />
 
           <h2 className="mt-8 max-w-xl text-3xl font-extrabold tracking-tight text-ink sm:text-4xl sm:leading-tight">

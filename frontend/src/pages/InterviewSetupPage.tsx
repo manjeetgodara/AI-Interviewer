@@ -58,7 +58,7 @@ export function InterviewSetupPage() {
     }
 
     if (!role) {
-      setRoleError('Please select an interview role.')
+      setRoleError('Please select a target role.')
       ok = false
     } else if (role === 'Other' && !customRole.trim()) {
       setRoleError('Please enter a custom role title.')
@@ -138,11 +138,11 @@ export function InterviewSetupPage() {
             </div>
             <div>
               <h1 className="text-2xl font-extrabold tracking-tight text-ink sm:text-[1.65rem]">
-                Interview setup
+                Practice interview setup
               </h1>
               <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">
                 Upload your resume and choose a role so Merra can tailor your
-                AI interview.
+                practice job interview.
               </p>
             </div>
           </div>
@@ -219,7 +219,7 @@ export function InterviewSetupPage() {
               />
               {!githubError ? (
                 <p id="github-hint" className="mt-1.5 text-xs text-ink-soft">
-                  Share a profile or repository URL to help personalize technical
+                  Share a profile or repository URL to personalize your practice
                   questions.
                 </p>
               ) : null}
@@ -255,10 +255,10 @@ export function InterviewSetupPage() {
                 {submitting ? (
                   <>
                     <LoaderCircle size={16} className="animate-spin" aria-hidden />
-                    Preparing interview…
+                    Preparing practice…
                   </>
                 ) : (
-                  'Continue to Interview'
+                  'Continue to Practice'
                 )}
               </Button>
             </div>
@@ -266,7 +266,7 @@ export function InterviewSetupPage() {
         </div>
 
         <p className="mt-6 text-center text-xs leading-relaxed text-ink-soft">
-          Your resume is parsed when you continue so Merra can tailor the interview.
+          Your resume is parsed when you continue so Merra can tailor your practice interview.
         </p>
       </div>
     </div>

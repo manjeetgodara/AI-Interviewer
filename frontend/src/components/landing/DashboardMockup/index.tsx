@@ -31,11 +31,11 @@ const CHAT_BY_PARTICIPANT: Record<string, { id: string; text: string }[]> = {
   merra: [
     {
       id: '1',
-      text: "Hey, I'm Merra. I talk with candidates, not at a camera.",
+      text: "Hey, I'm Merra. Let's practice your job interview together.",
     },
     {
       id: '2',
-      text: "No 'record yourself' homework, no waffle — just a real conversation.",
+      text: "I'll ask real interview questions and follow up — just like a live interview.",
     },
     {
       id: '3',
@@ -112,7 +112,7 @@ export function DashboardMockup() {
         <button
           type="button"
           className="absolute -right-3 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg shadow-brand-600/30 cursor-pointer hover:bg-brand-700 xl:inline-flex"
-          aria-label="Schedule interview"
+          aria-label="Practice interview"
         >
           <Calendar size={18} />
         </button>

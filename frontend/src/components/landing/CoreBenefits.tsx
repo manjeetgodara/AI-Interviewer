@@ -13,21 +13,21 @@ const BENEFITS: Benefit[] = [
   {
     title: 'Tailored to Your Resume & Role',
     description:
-      'Upload your resume, pick a target role, and optionally add GitHub — Merra builds questions around your real experience.',
+      "Upload your resume, pick the job you're aiming for, and optionally add GitHub — Merra builds practice questions around your real experience.",
     icon: <FileText size={22} strokeWidth={1.75} />,
     iconWrap: 'bg-sky-100 text-sky-600',
   },
   {
-    title: 'Live Conversational Practice',
+    title: 'Live Interview Practice',
     description:
-      'A real back-and-forth with an AI interviewer — adaptive follow-ups, not a one-way video dump.',
+      'Practice a real job interview with an AI interviewer — adaptive follow-ups, not a one-way video dump.',
     icon: <Bot size={22} strokeWidth={1.75} />,
     iconWrap: 'bg-indigo-100 text-indigo-600',
   },
   {
     title: 'Clear Match-Fit Score',
     description:
-      'Finish in 15–20 minutes with a 0–100 score, per-area notes, and a full transcript so you know what to improve.',
+      'Finish in 15–20 minutes with a 0–100 score, per-area notes, and a full transcript so you know what to improve before the real interview.',
     icon: <Target size={22} strokeWidth={1.75} />,
     iconWrap: 'bg-violet-100 text-violet-600',
   },
@@ -50,10 +50,10 @@ export function CoreBenefits() {
 
             <div className="relative mb-10 max-w-xl">
               <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-600">
-                Use Cases
+                For Job Seekers
               </p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-                Why Candidates Practice with Merra
+                Why Practice Job Interviews with Merra
               </h2>
             </div>
 

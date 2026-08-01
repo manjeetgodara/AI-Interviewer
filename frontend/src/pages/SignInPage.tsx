@@ -40,8 +40,8 @@ export function SignInPage() {
       title="Welcome back"
       subtitle={
         redirectTo === '/interview/setup'
-          ? 'Sign in to start your interview setup.'
-          : 'Sign in to continue interviewing with Merra.'
+          ? 'Sign in to set up your practice interview.'
+          : 'Sign in to keep practicing job interviews with Merra.'
       }
       footer={
         <>
@@ -62,7 +62,7 @@ export function SignInPage() {
           name="email"
           type="email"
           autoComplete="email"
-          placeholder="you@company.com"
+          placeholder="you@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required

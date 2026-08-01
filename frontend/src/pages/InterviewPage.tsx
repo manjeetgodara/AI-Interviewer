@@ -50,8 +50,8 @@ export function InterviewPage() {
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-ink-muted">
             {state.role
-              ? `Your ${state.role} interview is ready to begin.`
-              : 'Your interview setup is complete.'}
+              ? `Your ${state.role} practice interview is ready to begin.`
+              : 'Your practice interview setup is complete.'}
           </p>
 
           <div
@@ -94,7 +94,7 @@ export function InterviewPage() {
               </span>
             </div>
             <p className="mt-3 text-sm font-medium text-ink-muted">
-              Your interview starts in{' '}
+              Your practice interview starts in{' '}
               <span className="font-bold text-ink">{secondsLeft}</span>{' '}
               {secondsLeft === 1 ? 'second' : 'seconds'}
             </p>

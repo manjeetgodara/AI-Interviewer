@@ -33,11 +33,11 @@ const CHAT_BY_PARTICIPANT: Record<string, { id: string; text: string }[]> = {
   merra: [
     {
       id: '1',
-      text: "Hey, I'm Merra. I talk with candidates, not at a camera.",
+      text: "Hey, I'm Merra. Let's practice your job interview together.",
     },
     {
       id: '2',
-      text: "No 'record yourself' homework, no waffle — just a real conversation.",
+      text: "I'll ask real interview questions and follow up — just like a live interview.",
     },
     {
       id: '3',
@@ -109,7 +109,7 @@ export function InterviewSessionPage() {
             <MerraLogo size="sm" className="shrink-0" />
             {state.role ? (
               <p className="text-xs font-medium text-ink-muted">
-                {state.role} interview
+                {state.role} practice interview
                 {state.resumeName ? ` · ${state.resumeName}` : ''}
               </p>
             ) : null}
@@ -131,7 +131,7 @@ export function InterviewSessionPage() {
               className="border-red-200 text-red-600 hover:border-red-400 hover:text-red-700"
             >
               <PhoneOff size={14} aria-hidden />
-              End Interview
+              End Practice
             </Button>
           </div>
         </div>

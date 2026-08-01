@@ -1,9 +1,9 @@
 import { Check } from 'lucide-react'
 
 const FEATURES = [
-  'No ATS required',
-  '30-day media retention',
-  'GDPR-friendly',
+  'Resume-based questions',
+  'Instant feedback score',
+  'Practice anytime',
 ] as const
 
 export function FeatureList() {

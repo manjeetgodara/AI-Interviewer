@@ -18,13 +18,13 @@ export function FinalCTA() {
           />
 
           <h2 className="mt-8 max-w-xl text-3xl font-extrabold tracking-tight text-ink sm:text-4xl sm:leading-tight">
-            Built for Recruiters Who Value Time, Not Extra Tabs.
+            Ready to practice your next job interview with AI?
           </h2>
 
           <div className="relative mt-9 flex flex-col items-center gap-3 sm:flex-row">
             <Link to="/interview/setup">
               <Button variant="primary" size="lg" className="min-w-[168px]">
-                Start Interview
+                Start Practicing
               </Button>
             </Link>
             <Button variant="secondary" size="lg" className="min-w-[168px]">

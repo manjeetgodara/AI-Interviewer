@@ -22,7 +22,7 @@ export function VideoFeed({
   return (
     <div className="flex min-w-0 flex-1 flex-col">
       <div className="mb-3 flex items-center justify-between gap-3 rounded-lg bg-[#eef0f6] px-3 py-2 text-[11px] font-semibold tracking-wide text-ink-muted sm:text-xs">
-        <span className="uppercase">AI Interview</span>
+        <span className="uppercase">Practice Interview</span>
         <span className="tabular-nums">{timeLabel}</span>
         <span className="uppercase tracking-wider">{dateLabel}</span>
       </div>

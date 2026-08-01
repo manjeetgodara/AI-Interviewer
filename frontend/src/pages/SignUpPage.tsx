@@ -64,8 +64,8 @@ export function SignUpPage() {
       title="Create your account"
       subtitle={
         redirectTo === '/interview/setup'
-          ? 'Create an account to start your interview setup.'
-          : 'Start running conversational AI interviews in minutes.'
+          ? 'Create an account to set up your practice interview.'
+          : 'Start practicing job interviews with AI in minutes.'
       }
       footer={
         <>
@@ -89,11 +89,11 @@ export function SignUpPage() {
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
           <Input
-            label="Work email"
+            label="Email"
             name="email"
             type="email"
             autoComplete="email"
-            placeholder="you@company.com"
+            placeholder="you@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required

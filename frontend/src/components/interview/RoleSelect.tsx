@@ -62,7 +62,7 @@ export function RoleSelect({
     <div ref={containerRef} className="relative">
       <div className="mb-1.5 flex items-center justify-between gap-3">
         <label className="text-sm font-medium text-ink" htmlFor="role-trigger">
-          Interview role
+          Target role
         </label>
         <span className="text-xs font-medium text-ink-soft">Required</span>
       </div>
@@ -149,7 +149,7 @@ export function RoleSelect({
         <p className="mt-1.5 text-xs text-red-600">{error}</p>
       ) : (
         <p className="mt-1.5 text-xs text-ink-soft">
-          Choose the role this interview should evaluate
+          Choose the role you want to practice interviewing for
         </p>
       )}
 
